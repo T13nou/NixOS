@@ -23,6 +23,79 @@
       fsType = "vfat";
     };
 
+  fileSystems."/mnt/TrueNAS/Backup" =
+    { device = "192.168.2.110:/mnt/FastPool/Backup";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+    };
+
+  fileSystems."/mnt/TrueNAS/Documents" =
+    { device = "192.168.2.110:/mnt/FastPool/Documents";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+    };
+
+  fileSystems."/mnt/TrueNAS/Downloads" =
+    { device = "192.168.2.110:/mnt/FastPool/Downloads";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+    };
+
+  fileSystems."/mnt/TrueNAS/Elsa" =
+    { device = "192.168.2.110:/mnt/FastPool/Elsa";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+    };
+
+  fileSystems."/mnt/TrueNAS/Etienne" =
+    { device = "192.168.2.110:/mnt/FastPool/Etienne";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+    };
+
+  fileSystems."/mnt/TrueNAS/Gaming" =
+    { device = "192.168.2.110:/mnt/FastPool/Gaming";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+    };
+
+  fileSystems."/mnt/TrueNAS/IT" =
+    { device = "192.168.2.110:/mnt/FastPool/IT";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+    };
+
+  fileSystems."/mnt/TrueNAS/Mateo" =
+    { device = "192.168.2.110:/mnt/FastPool/Mateo";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+    };
+
+  fileSystems."/mnt/TrueNAS/Music" =
+    { device = "192.168.2.110:/mnt/FastPool/Music";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+    };
+
+  fileSystems."/mnt/TrueNAS/Photos" =
+    { device = "192.168.2.110:/mnt/FastPool/Music";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+    };
+
+  fileSystems."/mnt/TrueNAS/Uploads" =
+    { device = "192.168.2.110:/mnt/FastPool/Music";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+    };
+
+  fileSystems."/mnt/TrueNAS/Videos" =
+    { device = "192.168.2.110:/mnt/FastPool/Music";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+    };
+
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

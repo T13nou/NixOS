@@ -82,9 +82,51 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.etienne = {
     isNormalUser = true;
+    home = "/home/etienne";
     description = "Etienne";
+    hashedPassword = "$y$j9T$3zXUGnMuRyP9uxn9LnL7e.$FOb80JwzmeY2tlHjqAGJUb1u7dbmBiSWA/GFHB.hcz7";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+      firefox
+      kate
+    #  thunderbird
+    ];
+  };
+
+  users.users.dina = {
+    isNormalUser = true;
+    home = "/home/dina";
+    description = "Dina";
+    hashedPassword = "$y$j9T$kw0n0u/Tu5tNgg97MVb491$zJOunKsWLI6ZJSc8qQxv3AqRaI8G4mNZN9UhSQNgoj.";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+      firefox
+      kate
+    #  thunderbird
+    ];
+  };
+
+  users.users.mateo = {
+    isNormalUser = true;
+    home = "/home/mateo";
+    description = "Mateo";
+    hashedPassword = "$y$j9T$QKqC5jbBSNG6Q.61F94id.$IOFxvw5hPLRK3qzc2sARpaOKlqAl7IQOjXbBfB.1bPA";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+      firefox
+      kate
+    #  thunderbird
+    ];
+  };
+
+  users.users.elsa = {
+    isNormalUser = true;
+    home = "/home/elsa";
+    description = "Elsa";
+    hashedPassword = "$y$j9T$X19CoBFMn0dzZ1acxxuZm0$N7jlBNi1tBPoV3f7LkZWrKwXlDuvtewzMFRtLtkUW70";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
@@ -99,8 +141,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    floorp fish spotify
+    ###
+    libreoffice-fresh libreoffice-fresh-fr
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
