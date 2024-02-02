@@ -23,6 +23,11 @@
       fsType = "vfat";
     };
 
+  # Enable bluetooth
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+
+  # Enable NFS Shares
   fileSystems."/mnt/TrueNAS/Backup" =
     { device = "192.168.2.110:/mnt/FastPool/Backup";
       fsType = "nfs";
@@ -106,4 +111,5 @@
   # networking.interfaces.enp6s18.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

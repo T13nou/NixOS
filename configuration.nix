@@ -13,6 +13,8 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernel.sysctl."vm.max_map_count" = 16777216;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -47,7 +49,17 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.sddm.autoNumlock = true; # NumLock On by default
   services.xserver.desktopManager.plasma5.enable = true;
+
+  # services.plasma5 ={
+  #   desktopSettings = {
+  #     "org.kde.plasma.desktop.wallpaper" = {
+  #       "package" = pkgs.kdeplasma-addons;
+  #       "users.dina.wallpapersource" = "bing";
+  #     };
+  #   };
+  # };
 
   # Configure keymap in X11
   services.xserver = {
@@ -135,17 +147,46 @@
     ];
   };
 
+  # Copy user faces and create KDE environment
+  system.activationScripts.script.text = ''
+    cp /mnt/TrueNAS/IT/Ansible/Users_Faces/icons/etienne /var/lib/AccountsService/icons/etienne && chmod 644 /var/lib/AccountsService/icons/etienne
+    cp /mnt/TrueNAS/IT/Ansible/Users_Faces/icons/dina /var/lib/AccountsService/icons/dina && chmod 644 /var/lib/AccountsService/icons/dina
+    cp /mnt/TrueNAS/IT/Ansible/Users_Faces/icons/mateo /var/lib/AccountsService/icons/mateo && chmod 644 /var/lib/AccountsService/icons/mateo
+    cp /mnt/TrueNAS/IT/Ansible/Users_Faces/icons/elsa /var/lib/AccountsService/icons/elsa && chmod 644 /var/lib/AccountsService/icons/elsa
+    cp /mnt/TrueNAS/IT/Ansible/Users_Faces/users/etienne /var/lib/AccountsService/users/etienne && chmod 600 /var/lib/AccountsService/users/etienne
+    cp /mnt/TrueNAS/IT/Ansible/Users_Faces/users/dina /var/lib/AccountsService/users/dina && chmod 600 /var/lib/AccountsService/users/dina
+    cp /mnt/TrueNAS/IT/Ansible/Users_Faces/users/mateo /var/lib/AccountsService/users/mateo && chmod 600 /var/lib/AccountsService/users/mateo
+    cp /mnt/TrueNAS/IT/Ansible/Users_Faces/users/elsa /var/lib/AccountsService/users/elsa && chmod 600 /var/lib/AccountsService/users/elsa
+        '';
+
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    floorp fish spotify
-    ###
-    libreoffice-fresh libreoffice-fresh-fr
+    ### System & utils
+    fish neofetch glxinfo
+    ### Dev
+    vscode gnome.gnome-boxes
+    ### Browsers
+    floorp microsoft-edge
+    ### KDE
+    krita okular kdenlive gwenview spectacle kcalc skanpage
+    ### Productivity
+    libreoffice-qt hunspellDicts.fr-any hunspellDicts.es-es hunspellDicts.en_US hunspellDicts.en_GB-large zoom-us
+    ### Entertainment
+    komikku gcompris spotify handbrake whatsapp-for-linux vlc
+    ### Gaming
+    vbam yuzu-mainline
   ];
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
