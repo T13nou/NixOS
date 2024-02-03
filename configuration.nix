@@ -16,7 +16,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernel.sysctl."vm.max_map_count" = 16777216;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "Etienne-Desktop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -52,15 +52,6 @@
   services.xserver.displayManager.sddm.autoNumlock = true; # NumLock On by default
   services.xserver.desktopManager.plasma5.enable = true;
 
-  # services.plasma5 ={
-  #   desktopSettings = {
-  #     "org.kde.plasma.desktop.wallpaper" = {
-  #       "package" = pkgs.kdeplasma-addons;
-  #       "users.dina.wallpapersource" = "bing";
-  #     };
-  #   };
-  # };
-
   # Configure keymap in X11
   services.xserver = {
     layout = "fr";
@@ -93,7 +84,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.etienne = {
     isNormalUser = true;
@@ -147,6 +137,7 @@
     ];
   };
 
+
   # Copy user faces and create KDE environment
   system.activationScripts.script.text = ''
     cp /mnt/TrueNAS/IT/Ansible/Users_Faces/icons/etienne /var/lib/AccountsService/icons/etienne && chmod 644 /var/lib/AccountsService/icons/etienne
@@ -158,7 +149,6 @@
     cp /mnt/TrueNAS/IT/Ansible/Users_Faces/users/mateo /var/lib/AccountsService/users/mateo && chmod 600 /var/lib/AccountsService/users/mateo
     cp /mnt/TrueNAS/IT/Ansible/Users_Faces/users/elsa /var/lib/AccountsService/users/elsa && chmod 600 /var/lib/AccountsService/users/elsa
         '';
-
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -177,7 +167,7 @@
     ### Productivity
     libreoffice-qt hunspellDicts.fr-any hunspellDicts.es-es hunspellDicts.en_US hunspellDicts.en_GB-large zoom-us
     ### Entertainment
-    komikku gcompris spotify handbrake whatsapp-for-linux vlc
+    komikku gcompris spotify handbrake whatsapp-for-linux vlc discord
     ### Gaming
     vbam yuzu-mainline
   ];
@@ -187,6 +177,7 @@
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

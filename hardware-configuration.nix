@@ -5,23 +5,27 @@
 
 {
   imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
+    [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ahci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/edf6923c-2980-471d-8daa-b0711fc7009d";
+    { device = "/dev/disk/by-uuid/9dbaf88a-4bdb-48cf-89c1-b3d1c9edcce5";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/3900-C9F5";
+    { device = "/dev/disk/by-uuid/D211-5C30";
       fsType = "vfat";
     };
+
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/f71fb58b-19cb-42cc-9924-0979ff6fe4a6"; }
+    ];
 
   # Enable bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
@@ -31,84 +35,82 @@
   fileSystems."/mnt/TrueNAS/Backup" =
     { device = "192.168.2.110:/mnt/FastPool/Backup";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+      options = [ "defaults" "timeo=900" "retrans=5" "_netdev" ];
     };
 
   fileSystems."/mnt/TrueNAS/Documents" =
     { device = "192.168.2.110:/mnt/FastPool/Documents";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+      options = [ "defaults" "timeo=900" "retrans=5" "_netdev" ];
     };
 
   fileSystems."/mnt/TrueNAS/Downloads" =
     { device = "192.168.2.110:/mnt/FastPool/Downloads";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+      options = [ "defaults" "timeo=900" "retrans=5" "_netdev" ];
     };
 
   fileSystems."/mnt/TrueNAS/Elsa" =
     { device = "192.168.2.110:/mnt/FastPool/Elsa";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+      options = [ "defaults" "timeo=900" "retrans=5" "_netdev" ];
     };
 
   fileSystems."/mnt/TrueNAS/Etienne" =
     { device = "192.168.2.110:/mnt/FastPool/Etienne";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+      options = [ "defaults" "timeo=900" "retrans=5" "_netdev" ];
     };
 
   fileSystems."/mnt/TrueNAS/Gaming" =
     { device = "192.168.2.110:/mnt/FastPool/Gaming";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+      options = [ "defaults" "timeo=900" "retrans=5" "_netdev" ];
     };
 
   fileSystems."/mnt/TrueNAS/IT" =
     { device = "192.168.2.110:/mnt/FastPool/IT";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+      options = [ "defaults" "timeo=900" "retrans=5" "_netdev" ];
     };
 
   fileSystems."/mnt/TrueNAS/Mateo" =
     { device = "192.168.2.110:/mnt/FastPool/Mateo";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+      options = [ "defaults" "timeo=900" "retrans=5" "_netdev" ];
     };
 
   fileSystems."/mnt/TrueNAS/Music" =
     { device = "192.168.2.110:/mnt/FastPool/Music";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+      options = [ "defaults" "timeo=900" "retrans=5" "_netdev" ];
     };
 
   fileSystems."/mnt/TrueNAS/Photos" =
-    { device = "192.168.2.110:/mnt/FastPool/Music";
+    { device = "192.168.2.110:/mnt/FastPool/Photos";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+      options = [ "defaults" "timeo=900" "retrans=5" "_netdev" ];
     };
 
   fileSystems."/mnt/TrueNAS/Uploads" =
-    { device = "192.168.2.110:/mnt/FastPool/Music";
+    { device = "192.168.2.110:/mnt/FastPool/Uploads";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+      options = [ "defaults" "timeo=900" "retrans=5" "_netdev" ];
     };
 
   fileSystems."/mnt/TrueNAS/Videos" =
-    { device = "192.168.2.110:/mnt/FastPool/Music";
+    { device = "192.168.2.110:/mnt/FastPool/Videos";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+      options = [ "defaults" "timeo=900" "retrans=5" "_netdev" ];
     };
-
-
-  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp6s18.useDHCP = lib.mkDefault true;
+  # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp9s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
