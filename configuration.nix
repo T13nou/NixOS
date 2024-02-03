@@ -62,7 +62,25 @@
   console.keyMap = "fr";
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.cnijfilter2 ];
+  };
+
+  hardware.printers = {
+    ensurePrinters = [
+      {
+        name = "Canon_TS8000";
+        location = "Home";
+        deviceUri = "ipps://192.168.2.12/";
+        model = "canonts8000.ppd";
+        ppdOptions = {
+          PageSize = "A4";
+        };
+      }
+    ];
+    ensureDefaultPrinter = "Canon_TS8000";
+  };
 
   # Enable sound with pipewire.
   sound.enable = true;
