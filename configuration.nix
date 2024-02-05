@@ -75,6 +75,8 @@
         deviceUri = "ipps://192.168.2.12/";
         model = "canonts8000.ppd";
         ppdOptions = {
+          MediaType = "plain";
+          CNGrayscale = true;
           PageSize = "A4";
         };
       }
