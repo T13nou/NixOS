@@ -1,4 +1,6 @@
-{ stdenv, fetchurl, autoPatchelfHook, gtk3, mesa, xorg }:
+{ stdenv, fetchurl, autoPatchelfHook
+, gtk3, libX11, libXext, libXmu, libXi, libGL, libGLU
+}:
 
 stdenv.mkDerivation rec {
   pname = "occt";
@@ -6,31 +8,25 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.ocbase.com/download/edition:Personal/os:Linux";
-    # SHA256 du binaire OCCT 14.0.8 (édition personnelle) – à obtenir avec nix-prefetch-url
-    sha256 = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    # SHA256 du binaire OCCT 14.0.8 (à calculer et insérer ici)
+    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
   };
 
   nativeBuildInputs = [ autoPatchelfHook ];
-  dontBuild = true;
-  buildInputs = [
-    gtk3
-    mesa
-    xorg.libX11
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXi
-  ];
 
+  # Pas de phase de compilation : on installe directement le binaire
   installPhase = ''
-    runHook preInstall
-    install -Dm755 $src $out/bin/OCCT
-    runHook postInstall
+    mkdir -p $out/bin
+    install -m755 OCCT $out/bin/OCCT
   '';
 
+  buildInputs = [ gtk3 libX11 libXext libXmu libXi libGL libGLU ];
+
   meta = with stdenv.lib; {
-    description = "OCCT Personal Edition ${version} – Outil de test de stabilité et de monitoring PC (gratuit pour usage personnel)";
-    license = licenses.unfree;
-    homepage = "https://www.ocbase.com/";
-    platforms = platforms.linux;
+    description = "OCCT (OverClock Checking Tool) – outil de test de stabilité et de monitoring matériel";
+    homepage    = "https://www.ocbase.com/";
+    license     = licenses.unfree;
+    platforms   = platforms.linux;
+    # (licence : logiciel gratuit, mais non libre)
   };
 }
